@@ -16,6 +16,8 @@ import javax.swing.table.TableModel;
 
 public class LibraryJTable extends JFrame
 {
+	public JTable table;
+	private JButton chkInBtn, chkOutBtn;
 	//constructor
 	public LibraryJTable(TableModel model)
 	{
@@ -23,7 +25,54 @@ public class LibraryJTable extends JFrame
 		
 		//boilerplate
 		this.setLayout(new FlowLayout() );
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setSize(700,600);
+		this.setLocationRelativeTo(null);
+		
+		//create the JTable and pass it the TableModel object that is 
+		//the parameter of this method
+		table = new JTable(model);
+		
+		//create a JScrollPane so we can see the column names on the table
+		JScrollPane scrollPane = new JScrollPane(table);		
+		this.add(scrollPane);
+		
+		JPanel btnPnl = new JPanel();
+		btnPnl.setLayout(new FlowLayout());
+		chkInBtn = new JButton("Check in");
+		chkOutBtn = new JButton("Check out");
+		btnPnl.add(chkInBtn);
+		btnPnl.add(chkOutBtn);
+		this.add(btnPnl, BorderLayout.SOUTH);
+		//last line
+		this.setVisible(true);
+	}//end cons
+	
+	public JButton chkInButton()
+	{
+		return chkInBtn;
+	}
+	
+	public JButton chkOutButton()
+	{
+		return chkOutBtn;
+	}
+	
+	public void addButtonListener(ActionListener a)
+	{
+		chkInBtn.addActionListener(a);
+		chkOutBtn.addActionListener(a);
+	
+	}
+	
+	
+	/*public LibraryJTable(TableModel model)
+	{
+		super("Professor Mohan's Library Contents");
+		
+		//boilerplate
+		this.setLayout(new FlowLayout() );
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setSize(700,600);
 		this.setLocationRelativeTo(null);
 		
@@ -35,9 +84,11 @@ public class LibraryJTable extends JFrame
 		JScrollPane scrollPane = new JScrollPane(table);		
 		this.add(scrollPane);
 		
+		
+		JButton btn = new JButton("hello");
+		this.add(btn);
 		//last line
 		this.setVisible(true);
-		
-	}//end cons
+	}//end cons*/
 }
 //end class

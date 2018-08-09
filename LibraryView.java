@@ -7,8 +7,8 @@ import javax.swing.*;
 public class LibraryView extends JFrame
 {
 	//Components
-	JTextField fNameTxt, lNameTxt, emailTxt, bTitle, ISBN, edtTxt, subTxt, avlbTxt,
-			   afNameTxt, alNameTxt, subjTxt;
+	JTextField fNameTxt, lNameTxt, emailTxt, bTitle, ISBN, edtTxt, subTxt, authTxt,
+			   avlbTxt, afSrcNameTxt, alSrcNameTxt, subjTxt;
 	JButton  listBkBtn, listLnBtn, listBrwBtn, listOvDBtn, addBrwrBtn, addBookBtn, 
 			 srchAthrBtn, srchSubjBtn;
 	
@@ -18,7 +18,7 @@ public class LibraryView extends JFrame
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		this.setSize(800,600);
+		this.setSize(600,600);
 		this.setLocationRelativeTo(null);
 		
 		//Tabbed Pane
@@ -57,9 +57,9 @@ public class LibraryView extends JFrame
 		librPanel.setLayout(new BorderLayout());
 		userPanel.setLayout(new BorderLayout());
 		lBtnPanel.setLayout(new FlowLayout());
-		addUPanel.setLayout(new GridLayout(3,2,2,2));
+		addUPanel.setLayout(new GridLayout(4,2,2,2));
 		usrBPanel.setLayout(new FlowLayout());
-		addBPanel.setLayout(new GridLayout(4,2,2,2));
+		addBPanel.setLayout(new GridLayout(5,2,2,2));
 		BkBtPanel.setLayout(new FlowLayout());
 		libSPanel.setLayout(new GridLayout(3,2,2,2));
 		subSPanel.setLayout(new GridLayout(2,2,2,2));
@@ -82,25 +82,27 @@ public class LibraryView extends JFrame
 		addUPanel.add(emailLbl);
 		addUPanel.add(emailTxt);
 		
-		userPanel.add(addUPanel, BorderLayout.NORTH);
-		
 		addBrwrBtn = new JButton("Add User");
 		
-		usrBPanel.add(addBrwrBtn);
+		addUPanel.add(addBrwrBtn);
+		userPanel.add(addUPanel, BorderLayout.NORTH);
 		
-		userPanel.add(usrBPanel, BorderLayout.SOUTH);
 		
 		//Book Maintenance Panel
 		bTitle = new JTextField();
+		authTxt = new JTextField();
 		ISBN = new JTextField();
 		edtTxt = new JTextField();
 		subTxt = new JTextField();
 			
+		JLabel authLbl = new JLabel("Author: ");
 		JLabel bTitleLbl = new JLabel("Book Title: ");
 		JLabel ISBNLbl = new JLabel("ISBN: ");
 		JLabel editLbl = new JLabel("Edition #: ");
 		JLabel subjLbl = new JLabel("Subject: ");
 		
+		addBPanel.add(authLbl);
+		addBPanel.add(authTxt);
 		addBPanel.add(bTitleLbl);
 		addBPanel.add(bTitle);
 		addBPanel.add(ISBNLbl);
@@ -120,8 +122,8 @@ public class LibraryView extends JFrame
 		
 		//LIBRARY CONTENT PANEL COMPONENTS
 		//Author Search
-		afNameTxt = new JTextField();
-		alNameTxt = new JTextField();
+		afSrcNameTxt = new JTextField();
+		alSrcNameTxt = new JTextField();
 		
 		JLabel authFLbl = new JLabel("Author First Name: ");
 		JLabel authLLbl = new JLabel("Author Last Name: ");
@@ -129,9 +131,9 @@ public class LibraryView extends JFrame
 		srchAthrBtn = new JButton("Search Author");
 		
 		libSPanel.add(authFLbl);
-		libSPanel.add(afNameTxt);
+		libSPanel.add(afSrcNameTxt);
 		libSPanel.add(authLLbl);
-		libSPanel.add(alNameTxt);
+		libSPanel.add(alSrcNameTxt);
 		libSPanel.add(srchAthrBtn);
 		
 		librPanel.add(libSPanel, BorderLayout.NORTH);
@@ -187,6 +189,10 @@ public class LibraryView extends JFrame
 	{
 		return fNameTxt.getText();
 	}
+	public String getAuthName()
+	{
+		return authTxt.getText();
+	}
 	public String getLastName()
 	{
 		return lNameTxt.getText();
@@ -217,11 +223,11 @@ public class LibraryView extends JFrame
 	}
 	public String getSearchAuthFirst()
 	{
-		return afNameTxt.getText();
+		return afSrcNameTxt.getText();
 	}
 	public String getSearchAuthLast()
 	{
-		return alNameTxt.getText();
+		return alSrcNameTxt.getText();
 	}
 	
 	//Button Getters
