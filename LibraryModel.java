@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class LibraryModel 
@@ -212,6 +213,7 @@ public class LibraryModel
 	{
 		Connection myConn = null;
 		Statement myStmt = null;
+		Statement myStmt4 = null;
 		ResultSet myRslt = null;
 		ResultSet aRslt = null;
 		ResultSet abRslt = null;
@@ -251,10 +253,9 @@ public class LibraryModel
 		            	
 		            	if(abRslt.next())
 		            	{
-		            		myStmt.executeUpdate("INSERT INTO Book_Author VALUES("+bookId+", "+aRslt.getInt("AuthorID")+")");
+		            		myStmt4.executeUpdate("INSERT INTO Book_Author VALUES("+bookId+", "+aRslt.getInt("AuthorID")+")");
 		            	}
 		            }
-		    
 				}
 				return true;
 			}//TO Do error handling

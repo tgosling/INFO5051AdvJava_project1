@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
@@ -32,6 +34,7 @@ public class LibraryController
 			Connection myConn = null;
 			Statement myStmt = null;
 			ResultSet myRslt = null;
+			boolean response = false;
 			
 			try 
 			{
@@ -64,14 +67,36 @@ public class LibraryController
 					String authFName = libView.getSearchAuthFirst();
 					String authLName = libView.getSearchAuthLast();
 					
-					LibraryJTable view = new LibraryJTable(libModel.searchAuthor(authFName, authLName));
+					if(authFName.isEmpty() && authLName.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Author first and last name was blank\nPlease enter a full name to search");
+					}
+					else if(authFName.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Author search first name was blank\nPlease enter a first name to search");
+					}
+					else if(authLName.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Author search last name was blank\nPlease enter a last name to search");
+					}
+					else
+					{
+						LibraryJTable view = new LibraryJTable(libModel.searchAuthor(authFName, authLName));
+					}
 				}
 				else if(e.getSource().equals(libView.srchSubjButton()))//Search Subject
 				{
 					//Subject Search Variables
 					String subj = libView.getSearchSubj();
 					
-					LibraryJTable view = new LibraryJTable(libModel.searchSubject(subj));
+					if(subj.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Subject search was blank,\nPlease enter a topic to search");
+					}
+					else
+					{
+						LibraryJTable view = new LibraryJTable(libModel.searchSubject(subj));
+					}
 				}
 				else if(e.getSource().equals(libView.addBrwrButton()))//Add Borrower
 				{
@@ -80,7 +105,31 @@ public class LibraryController
 					String brwLName = libView.getLastName();
 					String brwEmail = libView.getEmail();
 					
-					libModel.addNewBorrower(brwFName, brwLName, brwEmail);
+				
+					
+					if(brwFName.isEmpty() && brwLName.isEmpty() && brwEmail.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Borrower first and last name was blank");
+					}
+					else if(brwFName.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Borrower last name was blank");
+					}
+					else if(brwLName.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Borrower first name was blank");
+					}
+					else if(brwEmail.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Borrower Email was blank");	
+					}
+					else
+						response = libModel.addNewBorrower(brwFName, brwLName, brwEmail);
+					
+					if(response)
+						JOptionPane.showMessageDialog(null, "Succesfully added Borrower: "+brwFName+" "+brwLName+" ");
+					else
+						JOptionPane.showMessageDialog(null, "Borrower: "+brwFName+" "+brwLName+" not added to library");
 				}
 				else if(e.getSource().equals(libView.addBookButton()))//Add Book
 				{
@@ -95,8 +144,14 @@ public class LibraryController
 					List<String> Authors = new ArrayList<String>();
 					
 					Authors.add(bkAuth);
+				
+						response = libModel.addNewBook(bkTitle, bkISBN, iEdt, bkSubj, Authors);
 					
-					libModel.addNewBook(bkTitle, bkISBN, iEdt, bkSubj, Authors);
+					if(response)
+						JOptionPane.showMessageDialog(null, "Succesfully added book: "+bkTitle+" to the library");
+					else
+						JOptionPane.showMessageDialog(null, "Book: "+bkTitle+" not added to library");
+						
 					//TO do Get from view
 				}
 				else if(e.getSource().equals(libTable.chkInButton()))
@@ -110,8 +165,6 @@ public class LibraryController
 					query.setString(1, value);
 					
 					LibraryJTable view = new LibraryJTable(libModel.getAllBooks());
-					
-					System.out.println("test test");
 				}
 				
 			}

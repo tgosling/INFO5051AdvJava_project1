@@ -26,7 +26,7 @@ public class LibraryJTable extends JFrame
 		//boilerplate
 		this.setLayout(new FlowLayout() );
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setSize(700,600);
+		this.setSize(500,500);
 		this.setLocationRelativeTo(null);
 		
 		//create the JTable and pass it the TableModel object that is 
